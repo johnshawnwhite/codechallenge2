@@ -6,6 +6,7 @@ function onReady() {
     console.log('DOM ready');
     //listener set up to send the jokes to the dom
     $('#addJokeButton').on('click', addJoke)
+    getJokes();
 
 }
 
@@ -22,12 +23,13 @@ function addJoke() {
     url: '/jokes',
     data:  {
         whoseJoke: $('#whoseJoke').val(),
-        jokeQuestion: $('#question').val(),
+        question: $('#question').val(),
         punchLine: $('#punchLine').val(),
     }
   })
   .then(result => {
     console.log('POST /joke added', result);
+    getJokes();
   })
   .catch(err => {
     console.log('POST /adding joke failed', err);
@@ -39,29 +41,31 @@ function addJoke() {
 // i almost made it, last order of buisness
 // 
 
-// function getOperation() {
-//     $.ajax({
-//       method: 'GET',
-//       url: '/jokes',
-//     })
-//       .then(result => {
-//         console.log('GET /jokes', result);
+function getJokes() {
+    $.ajax({
+      method: 'GET',
+      url: '/jokes',
+    })
+      .then(result => {
+        console.log('GET /jokes', result);
+
   
-//           // send calculations list to the dom
-//         $('#jokes').empty();
-//           for (let jokes of jokes) {
-//             $('#jokes').append(`
-//             <li>By:${jokes.whoseJoke}Question: ${jokes.jokeQuestion}Punchline: ${jokes.punchLine}</li>
-//             `);
-//         }
+          // send jokes list to the dom
+        $('#allJokes').empty();
+          for (let jokes of result) {
+
+            $('#allJokes').append(`
+            <li> Author:   ${jokes.whoseJoke}  Question:   ${jokes.question}  Punchline:  ${jokes.punchLine}</li>
+            `);
+        }
   
   
-//       })
-//       .catch(err => {
-//         console.log(' GET /calculations', err);
+      })
+      .catch(err => {
+        console.log(' GET /jokes', err);
   
   
         
         
-//       })
-//   }
+      })
+  }

@@ -18,27 +18,27 @@ app.listen(PORT, () => {
 let jokes = [
   {
     whoseJoke: "Danny",
-    jokeQuestion: "Why do scuba divers fall backwards out of boats?",
+    question: "Why do scuba divers fall backwards out of boats?",
     punchLine: "If they fell forwards they’d still be in the boat!"
   },
   {
     whoseJoke: "Luke",
-    jokeQuestion: "Two fish are in a tank. What did one fish say to the other?",
+    question: "Two fish are in a tank. What did one fish say to the other?",
     punchLine: "Do you know how to drive this thing?"
   },
   {
     whoseJoke: "Millie",
-    jokeQuestion: "What do you call a pile of cats?",
+    question: "What do you call a pile of cats?",
     punchLine: "A meowntain!"
   },
   {
     whoseJoke: "dEv",
-    jokeQuestion: "Why should you not play cards in the forest?",
+    question: "Why should you not play cards in the forest?",
     punchLine: "Too many Cheetahs!"
   },
   {
     whoseJoke: "Scott",
-    jokeQuestion: "I went to the zoo the other day, it had one dog...",
+    question: "I went to the zoo the other day, it had one dog...",
     punchLine: "It was a shih tzu."
   }
 ];
@@ -90,11 +90,12 @@ app.get('/jokes', (req, res) => {
 
 app.post('/jokes',(req,res) => {
   console.log('In post for addition', req.body);
+  // let allJokes = req.body.jokes;
 
   // add it to our item array
   jokes.push({
     whoseJoke: req.body.whoseJoke,
-    jokeQuestion: req.body.jokeQuestion,
+    question: req.body.question,
     punchLine: req.body.punchLine,
 });
   
@@ -106,6 +107,9 @@ app.post('/jokes',(req,res) => {
 });
     
 
+app.get('/jokes', (req, res) => {
+  res.send(jokes);
+});
      // 
   //   whoseJoke: $('#whoseJoke').val(),
   //   jokeQuestion: $('#question').val(),
